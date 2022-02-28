@@ -9,49 +9,63 @@ import {
 import { CountedTime } from "./src/components/CountedTime";
 import { Task } from "./src/components/Task";
 
-export default function App() {
-  const [task, setTask] = useState({ text: "", time: null});
-  const [taskItems, setTaskItems] = useState([]);
 
+export default function App() {
+  const [task, setTask] = useState({ text: "", time: null });
+  const [taskItems, setTaskItems] = useState([]);
 
   const handleAddTask = () => {
     setTaskItems([...taskItems, task]);
-    setTask({ text: "", time: null});
+    setTask({ text: "", time: null });
   };
 
+  let total = taskItems.reduce((prev, curr) => prev + curr.time, 0) * 60;
+
+  const convert = (x) => {
+    return Math.floor(x / 60) + "h" + ":" + (x % 60 ? x % 60 : "00") + "min";
+  };
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
-        <CountedTime/>
+        <CountedTime />
+
+        <Text>Today: {convert(total)}</Text>
+
         <View style={styles.writeTaskWrapper}>
           <View>
             <TextInput
               style={styles.input}
               placeholder={"Write a task"}
               value={task.text}
-              onChangeText={(text) => setTask({...task, text:text})}
+              onChangeText={(text) => setTask({ ...task, text: text })}
             />
             <TextInput
               style={styles.input}
               placeholder={"Write a time"}
               value={task.time}
-              onChangeText={(time) => setTask({...task, time:time})}
+              onChangeText={(time) => setTask({ ...task, time: time })}
             />
           </View>
-          <View >
-          <TouchableOpacity onPress={() => handleAddTask()}>
-            <View style={styles.addWrapperTask}>
-              <Text style={styles.addText}>+</Text>
-            </View>
-          </TouchableOpacity>
-   
+          <View>
+            <TouchableOpacity onPress={() => handleAddTask()}>
+              <View style={styles.addWrapperTask}>
+                <Text style={styles.addText}>+</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.items}>
           {taskItems.map((item, index) => {
-            return <Task key={index} text={item.text} timeDuration={item.time}></Task>;
+            return (
+              <Task
+                key={index}
+                text={item.text}
+                timeDuration={item.time}
+              ></Task>
+            );
           })}
         </View>
       </View>
