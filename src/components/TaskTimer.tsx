@@ -3,7 +3,12 @@ import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { Timer } from "react-native-stopwatch-timer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const TaskTimer = ({ timeDuration }) => {
+
+interface TaskTimerProps {
+    timeDuration: number | null;
+}
+
+export const TaskTimer = ({ timeDuration }: TaskTimerProps) => {
   const [isTimerStart, setIsTimerStart] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
 
@@ -24,17 +29,17 @@ export const TaskTimer = ({ timeDuration }) => {
           setResetTimer(false);
         }}
       >
-        <Text style={styles.buttonText}>
+        <View >
           {!isTimerStart ? (
             <MaterialCommunityIcons
               name="play-circle"
-              color={"black"}
-              size={26}
+              color={"grey"}
+              size={35}
             />
           ) : (
-            <MaterialCommunityIcons name="stop-circle" color={"black"} size={26} />
+            <MaterialCommunityIcons name="stop-circle" color={"grey"} size={35} />
           )}
-        </Text>
+        </View>
       </TouchableHighlight>
     </View>
   );
@@ -43,27 +48,23 @@ export const TaskTimer = ({ timeDuration }) => {
 const styles = StyleSheet.create({
   sectionStyle: {
     flex: 1,
-    marginTop: 32,
     alignItems: "center",
     justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 20,
-    marginTop: 10,
+    flexDirection: 'row',
+    marginLeft: 60,
   },
 });
 
 const options = {
   container: {
-    backgroundColor: "#FF0000",
-    padding: 5,
+    // backgroundColor: "#FF0000",
     borderRadius: 5,
-    width: 200,
+    width: 150,
     alignItems: "center",
   },
   text: {
     fontSize: 25,
-    color: "#FFF",
+    color: "grey",
     marginLeft: 7,
   },
 };
