@@ -32,11 +32,13 @@ export default function App() {
 
   return (
     <>
+    <View style={styles.wrapper}>
+       <View style={styles.planningItems}>
+            <Text style={styles.planningItemsText}>Planning</Text>
+      <View>
       <View style={styles.container}>
         <View style={styles.tasksWrapper}>
-          <View style={styles.planningItems}>
-            <Text>Planning</Text>
-            <View>
+       
               <CountedTime />
             </View>
           </View>
@@ -85,11 +87,17 @@ export default function App() {
           <TouchableOpacity>Load more</TouchableOpacity>
         </View>
       </View>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: "#d1d1e0",
@@ -100,7 +108,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   planningItems: {
-    flexDirection: "row",
+    // flexDirection: "row",
+    // backgroundColor: "#1f1f2e",
+   
+  },
+  planningItemsText: {
+    fontSize: 30,
+    paddingVertical: 20,
   },
   sectionTitle: {
     fontSize: 24,
