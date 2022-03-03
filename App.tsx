@@ -6,13 +6,13 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { CountedTime } from "./src/components/CountedTime";
+import { StopWatch } from "./src/components/StopWatch";
 import { Task } from "./src/components/Task";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface TaskProps {
   text: string;
-  time: null | number;
+  time: null | number ;
 }
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
 
   const handleAddTask = (): void => {
     setTaskItems([...taskItems, task]);
-    setTask({ text: "", time: null });
+    setTask({ text: "", time: 0 });
   };
 
   let total = taskItems.reduce((prev, curr) => prev + curr.time, 0) * 60;
@@ -32,17 +32,11 @@ export default function App() {
 
   return (
     <>
-    <View style={styles.wrapper}>
-       <View style={styles.planningItems}>
-            <Text style={styles.planningItemsText}>Planning</Text>
-      <View>
-      <View style={styles.container}>
-        <View style={styles.tasksWrapper}>
-       
-              <CountedTime />
-            </View>
-          </View>
-          <View style={styles.writeTaskWrapper}>
+      <View style={styles.wrapper}>
+        <Text style={styles.planningItemsText}>Planning</Text>
+
+        <View style={styles.container}>
+          <View style={styles.addWrapper}>
             <View>
               <TextInput
                 style={styles.input}
@@ -57,36 +51,41 @@ export default function App() {
                 onChangeText={(time) => setTask({ ...task, time: time })}
               />
             </View>
+
             <View style={styles.addWrapperTask}>
               <TouchableOpacity onPress={() => handleAddTask()}>
                 <View style={styles.plus}>
                   <MaterialCommunityIcons
                     name="plus-circle"
                     color={"grey"}
-                    size={35}
+                    size={45}
                   />
                 </View>
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={styles.textStopwatch}>Today: {convert(total)}</Text>
-
-          <View style={styles.items}>
-            {taskItems.map((item, index) => {
-              return (
-                <Task
-                  key={index}
-                  text={item.text}
-                  timeDuration={item.time}
-                ></Task>
-              );
-            })}
+          <View style={styles.stopWatchWrapper}>
+            <StopWatch />
           </View>
         </View>
+
+        <Text style={styles.textStopwatch}>Today: {convert(total)}</Text>
+
+        <View style={styles.items}>
+          {taskItems.map((item, index) => {
+            return (
+              <Task
+                key={index}
+                text={item.text}
+                timeDuration={item.time}
+              ></Task>
+            );
+          })}
+        </View>
+
         <View style={styles.moreButton}>
           <TouchableOpacity>Load more</TouchableOpacity>
         </View>
-      </View>
       </View>
     </>
   );
@@ -95,26 +94,24 @@ export default function App() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    backgroundColor: "#fff",
   },
   container: {
     flex: 1,
+    maxHeight: 150,
     backgroundColor: "#d1d1e0",
     opacity: 0.8,
-  },
-  tasksWrapper: {
-    paddingTop: 80,
+    paddingTop: 30,
     paddingHorizontal: 20,
-  },
-  planningItems: {
-    // flexDirection: "row",
-    // backgroundColor: "#1f1f2e",
-   
   },
   planningItemsText: {
     fontSize: 30,
     paddingVertical: 20,
+  },
+  addWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   sectionTitle: {
     fontSize: 24,
@@ -128,8 +125,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  stopWatchWrapper: {
+    marginTop: 15,
+    marginLeft: 100,
+  },
   textStopwatch: {
     fontSize: 18,
+    fontWeight: "bold",
   },
   input: {
     paddingVertical: 5,
@@ -139,9 +141,10 @@ const styles = StyleSheet.create({
     borderColor: "#C0C0C0",
     borderWidth: 1,
     width: 150,
+    marginTop: 5,
   },
   plus: {
-    marginRight: 50,
+    marginRight: 130,
   },
   addWrapperTask: {
     borderRadius: 60,
