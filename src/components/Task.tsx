@@ -42,7 +42,7 @@ const style = StyleSheet.create({
     backgroundColor: "#4db8ff",
     opacity: 0.4,
     borderRadius: 5,
-    marginRight: 15,
+    marginRight: 5,
   },
   itemText: {
     maxWidth: "80%",

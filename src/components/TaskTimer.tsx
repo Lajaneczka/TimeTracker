@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import { StyleSheet, View, TouchableHighlight } from "react-native";
 import { Timer } from "react-native-stopwatch-timer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-
 interface TaskTimerProps {
-    timeDuration: number | null;
+  timeDuration: number | null;
 }
 
 export const TaskTimer = ({ timeDuration }: TaskTimerProps) => {
@@ -23,48 +22,45 @@ export const TaskTimer = ({ timeDuration }: TaskTimerProps) => {
         start={isTimerStart}
         options={options}
       />
+      <View style={styles.button}>
       <TouchableHighlight
         onPress={() => {
           setIsTimerStart(!isTimerStart);
           setResetTimer(false);
         }}
       >
-        <View >
-          {!isTimerStart ? (
-            <MaterialCommunityIcons
-              name="play-circle"
-              color={"grey"}
-              size={35}
-            />
-          ) : (
-            <MaterialCommunityIcons name="stop-circle" color={"grey"} size={35} />
-          )}
-        </View>
+        {!isTimerStart ? (
+          <MaterialCommunityIcons name="play-circle" color={"grey"} size={35} />
+        ) : (
+          <MaterialCommunityIcons name="stop-circle" color={"grey"} size={35} />
+        )}
       </TouchableHighlight>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   sectionStyle: {
-    flex: 1,
+    width: 100,
     alignItems: "center",
-    justifyContent: "center",
-    flexDirection: 'row',
-    marginLeft: 60,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    marginLeft: 150,
   },
+  button: {
+    marginHorizontal: 50,
+  }
 });
 
 const options = {
   container: {
-    // backgroundColor: "#FF0000",
-    borderRadius: 5,
-    width: 150,
+    width: 60,
     alignItems: "center",
+    paddingLeft: 50,
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     color: "grey",
-    marginLeft: 7,
   },
 };
